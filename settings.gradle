@@ -1,0 +1,33 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+        maven {
+            url "https://repo.spring.io/release"
+        }
+        maven {
+            url "https://repository.jboss.org/maven2"
+        }
+    }
+}
+rootProject.name = 'basic-multiproject'
+
+
+//def lookupForProjects(def root, def path) {
+//    root.listFiles().each {
+//        def ignoredFolders = ['build', 'src', 'out']
+//        if (it.isDirectory() && !(it.name in ignoredFolders)) {
+//            if (it.list({ dir, name -> name == 'build.gradle' }).length > 0) {
+//                include path + it.name
+//                lookupForProjects(it, "$path$it.name:")
+//            }
+//        }
+//    }
+//}
+//
+//lookupForProjects(rootDir, '')
+include 'shared'
+include 'spring-module-1'
+
