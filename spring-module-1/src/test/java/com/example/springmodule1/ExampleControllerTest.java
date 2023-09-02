@@ -1,5 +1,6 @@
 package com.example.springmodule1;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,11 @@ class ExampleControllerTest {
     void testGetTestData() throws Exception {
         mockMvc.perform(get("/test")).andDo(print()).andExpect(status().isOk())
                 .andExpect(result -> result.getModelAndView().getModel().get("data").equals("Welcome home man"));
+    }
+
+    @Test
+    public void testHello() {
+        var hello = "Hell";
+        Assertions.assertEquals("Hello", hello);
     }
 }
