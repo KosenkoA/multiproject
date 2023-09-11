@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+
+  java_db:
+    container_name: java_db
+    image: postgres:12
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  spring-module-1:
+    container_name: java_app
+    environment: # environment variables to be used by the spring-module-1 container
+      DATABASE_URL: jdbc:postgresql://java_db:5432/postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+    depends_on:
+      - java_db # spring-module-1 depends on mysql-dummy and will wait for it to be ready before starting
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: spring-module-1:latest # name of the spring-module-1 image to be used
+    ports:
+      - "8080:8080" # expose port 8080 of the container to port 8080 of the host machine

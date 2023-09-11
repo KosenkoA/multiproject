@@ -9,10 +9,6 @@ repositories {
 
 ext {
     pmdRules = files("config/pmd/ruleset.xml")
-    testAmqpUser = UUID.randomUUID().toString()
-    testAmqpPassword = UUID.randomUUID().toString()
-    testMongoUser = UUID.randomUUID().toString().substring(0, 4)
-    testMongoPassword = UUID.randomUUID().toString()
     testMySQLUser = UUID.randomUUID().toString().substring(0, 4)
     testMySQLPassword = UUID.randomUUID().toString()
 }
@@ -89,5 +85,6 @@ subprojects {
     test {
         useJUnitPlatform()
     }
+
     tasks.register("prepareKotlinBuildScriptModel") {}
 }
