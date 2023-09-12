@@ -66,7 +66,7 @@ public class UserController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/test")
     public ModelAndView getTestData() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("welcome");

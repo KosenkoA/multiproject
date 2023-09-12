@@ -1,17 +1,27 @@
 version: '3.9'
 services:
 
+  # db name used to connect to the database via pgadmin
   java_db:
     container_name: java_db
     image: postgres:12
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+  #    volumes:
+  #      - data:/var/lib/postgresql/data
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
 
   spring-module-1:
     container_name: java_app
@@ -20,7 +30,7 @@ services:
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
     depends_on:
-      - java_db # spring-module-1 depends on mysql-dummy and will wait for it to be ready before starting
+      - java_db # spring-module-1 depends on java_db and will wait for it to be ready before starting
     build:
       context: .
       dockerfile: Dockerfile
