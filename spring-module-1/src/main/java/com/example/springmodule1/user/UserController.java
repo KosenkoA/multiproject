@@ -47,7 +47,10 @@ public class UserController {
             existingUser.setEmail(user.getEmail());
             return userRepository.save(existingUser);
         } else {
-            return null;
+            User emptyUser = new User();
+            emptyUser.setName("User not found");
+            emptyUser.setEmail("User not found");
+            return emptyUser;
         }
     }
 
