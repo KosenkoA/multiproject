@@ -13,6 +13,8 @@ services:
       POSTGRES_DB: 'postgres'
     volumes:
       - pgdata:/var/lib/postgresql/data
+  #  optional pgadmin container
+  #  may be used to explore the database
   pgadmin:
     container_name: pgadmin4_container
     image: dpage/pgadmin4
@@ -22,7 +24,10 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - "5050:80"
-
+  #  spring-module-1 container
+  #  connects to the database via the java_db container and waits for it to be ready before starting
+  #  can be accessed via localhost:8080
+  #  can be run by building jar file via gradle task bootJar and then running docker compose up --build
   spring-module-1:
     container_name: java_app
     environment: # environment variables to be used by the spring-module-1 container
@@ -39,5 +44,7 @@ services:
     ports:
       - "8080:8080" # expose port 8080 of the container to port 8080 of the host machine
 
+# volumes to be used by the java_db container
+# volumes are used to persist data between container restarts
 volumes:
   pgdata: { }

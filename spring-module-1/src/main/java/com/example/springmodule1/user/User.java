@@ -2,12 +2,14 @@ package com.example.springmodule1.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
-
+    // This is the model class for the User entity
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,17 +20,4 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    //getters and setters
-
-  public void setId(Long id) {
-        this.id = id;
-    }
-
-  public void setName(String name) {
-        this.name = name;
-    }
-
-  public void setEmail(String email) {
-        this.email = email;
-    }
 }
