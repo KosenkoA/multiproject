@@ -18,15 +18,17 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    public void setId(Long id) {
+    //getters and setters
+
+  public void setId(Long id) {
         this.id = id;
     }
 
-    public void setName(String name) {
+  public void setName(String name) {
         this.name = name;
     }
 
-    public void setEmail(String email) {
+  public void setEmail(String email) {
         this.email = email;
     }
 }

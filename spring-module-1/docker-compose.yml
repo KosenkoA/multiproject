@@ -8,9 +8,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'postgres'
     volumes:
       - pgdata:/var/lib/postgresql/data
   pgadmin:
@@ -26,9 +26,9 @@ services:
   spring-module-1:
     container_name: java_app
     environment: # environment variables to be used by the spring-module-1 container
-      - DATABASE_URL=jdbc:postgresql://java_db:5432/postgres
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=postgres
+      DATABASE_URL: 'jdbc:postgresql://java_db:5432/postgres'
+      DATABASE_USERNAME: 'postgres'
+      DATABASE_PASSWORD: 'postgres'
     depends_on:
       - java_db # spring-module-1 depends on java_db and will wait for it to be ready before starting
     build:

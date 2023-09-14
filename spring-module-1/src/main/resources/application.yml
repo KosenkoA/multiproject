@@ -1,11 +1,15 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
-    password: ${DATABASE_USERNAME}
-    username: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://java_db:5432/postgres
+    password: postgres
+    username: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
