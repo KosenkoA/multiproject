@@ -35,7 +35,7 @@ subprojects {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
+//  dependencies available for all subprojects
     dependencies {
         compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
         annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
@@ -49,7 +49,7 @@ subprojects {
         testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '3.1.3'
         testImplementation group: 'org.mockito', name: 'mockito-inline', version: '5.2.0'
     }
-
+// task which checks code coverage
     jacocoTestCoverageVerification {
         violationRules {
             rule {
@@ -63,6 +63,7 @@ subprojects {
                         'com.somecompany.project.*.dm.*',
                         'com.somecompany.project.*.dto.*'
                 ]
+//              code coverage limit. 1.0 means 100%
                 limit {
                     minimum = 1.0
                 }

@@ -10,6 +10,7 @@ repositories {
     mavenCentral()
 }
 
+// dependencies of this module
 dependencies {
     implementation project(':shared')
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.1.3'
