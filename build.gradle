@@ -32,8 +32,11 @@ subprojects {
     version = '1.0-SNAPSHOT'
 
     tasks.withType(JavaCompile).configureEach {
+//    Java version used for all subprojects
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+//      enable compilation in a separate daemon process
+        options.fork = true
     }
 //  dependencies available for all subprojects
     dependencies {
