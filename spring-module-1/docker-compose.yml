@@ -34,7 +34,8 @@ services:
       DATABASE_URL: 'jdbc:postgresql://java_db:5432/postgres'
       DATABASE_USERNAME: 'postgres'
       DATABASE_PASSWORD: 'postgres'
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://java_db:5432/postgres' # env variable which overrides the datasource url in application.yml
+      JAVA_TOOL_OPTIONS: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005' # env variable which enables remote debugging
+
     depends_on:
       - java_db # spring-module-1 depends on java_db and will wait for it to be ready before starting
     build:
@@ -43,6 +44,7 @@ services:
     image: spring-module-1:latest # name of the spring-module-1 image to be used
     ports:
       - "8080:8080" # expose port 8080 of the container to port 8080 of the host machine
+      - "5005:5005" # expose port 5005 of the container to port 5005 of the host machine for debugging
 
 # volumes to be used by the java_db container
 # volumes are used to persist data between container restarts

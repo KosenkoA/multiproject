@@ -29,11 +29,17 @@ public class UserController {
         return "Hello World!";
     }
 
+    //   method to test if the database is accessible from spring-module-1
+    //   can be accessed at http://localhost:8080/api/users
     @GetMapping
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    //   method to test if the database is accessible from spring-module-1
+    //   can be accessed at http://localhost:8080/api/users/{id}
+    //   where {id} is the id of the user you want to get
+    //   user info should be in database
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         if (userRepository.findById(id).isPresent()) {
@@ -47,11 +53,17 @@ public class UserController {
         }
     }
 
+    //  method to test if the database is accessible from spring-module-1
+    //  can be accessed at http://localhost:8080/api/users
+    //  adds user to database
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
     }
 
+    // method to test if the database is accessible from spring-module-1
+    // can be accessed at http://localhost:8080/api/users/{id}
+    // updates user in database
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         if (userRepository.findById(id).isPresent()) {
@@ -68,6 +80,9 @@ public class UserController {
         }
     }
 
+    // method to test if the database is accessible from spring-module-1
+    // can be accessed at http://localhost:8080/api/users/{id}
+    // deletes user from database
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id) {
         try {
