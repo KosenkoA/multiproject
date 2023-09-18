@@ -18,14 +18,14 @@ debugging, accessing PostgreSQL through pgAdmin, and adding additional tools lik
 4. **Start the Project**: Run the following command to start the project using Docker Compose:
 
    ```bash
-   docker-compose up --build
+   docker compose up --build
    ```
 
    This command will create and start containers for PostgreSQL, pgAdmin, and the Spring application. Wait for the
    containers to start and the Spring application to be ready.
    To start the project without pgadmin, use the command
    ```bash
-   docker-compose up spring-module-1 --build
+   docker compose up spring-module-1 --build
    ```
 5. **Access the Spring Application**: You can access the Spring application
    at [http://localhost:8080/api/users/hello](http://localhost:8080/api/users/hello). The application should be up and
@@ -88,7 +88,7 @@ To add additional tools like Redis or Kafka to your Docker Compose setup, follow
     - Run the following command to rebuild and restart your containers, including the new services:
 
    ```bash
-   docker-compose up --build
+   docker compose up --build
    ```
 
    This will incorporate the changes you made in the `docker-compose.yml` file.
