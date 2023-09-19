@@ -13,9 +13,13 @@ debugging, accessing PostgreSQL through pgAdmin, and adding additional tools lik
    ```
 
 2. **Docker Setup**: Ensure that you have Docker installed on your machine.
-3. **Project Build**: Build a project locally, using Gradle. Gradle -> basic-multiproject -> tasks -> build -> bootJar.
+3. **Intellij IDEA**: Configure Gradle and Java SDK in Intellij IDEA. Settings -> Build, Execution, Deployment -> Build
+   Tools -> Gradle -> Gradle JVM. Set JDK value to corretto-17.
+   You may have to help Gradle a bit, import modules manually. Here are the
+   instructions: https://www.jetbrains.com/help/idea/creating-and-managing-modules.html#import-module
+4. **Project Build**: Build a project locally, using Gradle. Gradle -> basic-multiproject -> tasks -> build -> bootJar.
    Make sure the .jar file appears in the spring-module-1 -> build -> libs directory.
-4. **Start the Project**: Run the following command to start the project using Docker Compose:
+5. **Start the Project**: Run the following command to start the project using Docker Compose:
 
    ```bash
    docker compose up --build
@@ -27,10 +31,10 @@ debugging, accessing PostgreSQL through pgAdmin, and adding additional tools lik
    ```bash
    docker compose up spring-module-1 --build
    ```
-5. **Access the Spring Application**: You can access the Spring application
+6. **Access the Spring Application**: You can access the Spring application
    at [http://localhost:8080/api/users/hello](http://localhost:8080/api/users/hello). The application should be up and
    running.
-6. In UserController there are several other endpoints demonstrating interaction with the database, which can be tested
+7. In UserController there are several other endpoints demonstrating interaction with the database, which can be tested
    via Postman. Open the UserController class to get information about the endpoints.
 
 ## IntelliJ IDEA Configuration for Debugging
