@@ -14,20 +14,7 @@ pluginManagement {
 }
 rootProject.name = 'basic-multiproject'
 
-
-//def lookupForProjects(def root, def path) {
-//    root.listFiles().each {
-//        def ignoredFolders = ['build', 'src', 'out']
-//        if (it.isDirectory() && !(it.name in ignoredFolders)) {
-//            if (it.list({ dir, name -> name == 'build.gradle' }).length > 0) {
-//                include path + it.name
-//                lookupForProjects(it, "$path$it.name:")
-//            }
-//        }
-//    }
-//}
-//
-//lookupForProjects(rootDir, '')
+// all projects in this multi-project build should be included here
 include 'shared'
 include 'spring-module-1'
 

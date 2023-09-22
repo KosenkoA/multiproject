@@ -1,18 +1,14 @@
 plugins {
-//    id 'org.springframework.boot' version '3.1.3' apply false
-//    id 'io.spring.dependency-management' version '1.1.3' apply false
+    id 'org.springframework.boot' version '3.1.3'
     id 'org.sonarqube' version '3.3'
+}
+
+repositories {
+    mavenCentral()
 }
 
 ext {
     pmdRules = files("config/pmd/ruleset.xml")
-}
-
-ext {
-    testAmqpUser = UUID.randomUUID().toString()
-    testAmqpPassword = UUID.randomUUID().toString()
-    testMongoUser = UUID.randomUUID().toString().substring(0, 4)
-    testMongoPassword = UUID.randomUUID().toString()
     testMySQLUser = UUID.randomUUID().toString().substring(0, 4)
     testMySQLPassword = UUID.randomUUID().toString()
 }
@@ -32,24 +28,17 @@ subprojects {
     apply plugin: "pmd"
     apply plugin: "idea"
 
+    group = 'org.example'
+    version = '1.0-SNAPSHOT'
+
     tasks.withType(JavaCompile).configureEach {
+//    Java version used for all subprojects
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+//      enable compilation in a separate daemon process
+        options.fork = true
     }
-
-//    repositories {
-//        mavenCentral()
-//        maven {
-//            url 'https://plugins.gradle.org/m2/'
-//        }
-//        maven {
-//            url "https://repo.spring.io/release"
-//        }
-//        maven {
-//            url "https://repository.jboss.org/maven2"
-//        }
-//    }
-
+//  dependencies available for all subprojects
     dependencies {
         compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
         annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
@@ -58,12 +47,12 @@ subprojects {
         testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
 
         testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-        testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 
         testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '3.1.3'
         testImplementation group: 'org.mockito', name: 'mockito-inline', version: '5.2.0'
     }
-
+// task which checks code coverage
     jacocoTestCoverageVerification {
         violationRules {
             rule {
@@ -77,6 +66,7 @@ subprojects {
                         'com.somecompany.project.*.dm.*',
                         'com.somecompany.project.*.dto.*'
                 ]
+//              code coverage limit. 1.0 means 100%
                 limit {
                     minimum = 1.0
                 }
@@ -99,5 +89,6 @@ subprojects {
     test {
         useJUnitPlatform()
     }
+
     tasks.register("prepareKotlinBuildScriptModel") {}
 }

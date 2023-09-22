@@ -1,0 +1,54 @@
+version: '3.9'
+services:
+
+  # db name used to connect to the database via pgadmin
+  java_db:
+    container_name: java_db
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'postgres'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  #  optional pgadmin container
+  #  may be used to explore the database
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    depends_on:
+      - java_db
+    ports:
+      - "5050:80"
+  #  spring-module-1 container
+  #  connects to the database via the java_db container and waits for it to be ready before starting
+  #  can be accessed via localhost:8080
+  #  can be run by building jar file via gradle task bootJar and then running docker compose up --build
+  spring-module-1:
+    container_name: java_app
+    environment: # environment variables to be used by the spring-module-1 container
+      DATABASE_URL: 'jdbc:postgresql://java_db:5432/postgres'
+      DATABASE_USERNAME: 'postgres'
+      DATABASE_PASSWORD: 'postgres'
+      JAVA_TOOL_OPTIONS: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005' # env variable which enables remote debugging
+
+    depends_on:
+      - java_db # spring-module-1 depends on java_db and will wait for it to be ready before starting
+    build:
+      context: .
+      dockerfile: Dockerfile # name of the dockerfile to be used
+    image: spring-module-1:latest # name of the spring-module-1 image to be used
+    ports:
+      - "8080:8080" # expose port 8080 of the container to port 8080 of the host machine
+      - "5005:5005" # expose port 5005 of the container to port 5005 of the host machine for debugging
+
+# volumes to be used by the java_db container
+# volumes are used to persist data between container restarts
+volumes:
+  pgdata: { }
